@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_work/pages/main/widgets/category_tile.dart';
 import 'package:flutter_work/utility/colours.dart';
 import 'package:flutter_work/widgets/support_widget.dart';
 
@@ -10,6 +11,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List categories = [
+    "assets/images/headphone_icon.png",
+    "assets/images/laptop.png",
+    "assets/images/watch.png",
+    "assets/images/TV.png",
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,33 +24,292 @@ class _HomeState extends State<Home> {
         backgroundColor: Colours.homePageBGColor,
         body: Container(
           margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Column(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'Hey, Araby',
+                            style: AppWidget.boldTextFieldStyle(),
+                          ),
+                          Text(
+                            'Good Morning',
+                            style: AppWidget.lightTextFieldStyle(),
+                          ),
+                        ],
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          'assets/images/boy.jpg',
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    ]),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Search Products",
+                      hintStyle: AppWidget.lightTextFieldStyle(),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  //Categories -- See ALl section
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Hey, Araby',
-                      style: AppWidget.boldTextFieldStyle(),
+                      'Categories',
+                      style: AppWidget.semiBoldTextStyle(),
                     ),
                     Text(
-                      'Good Morning',
-                      style: AppWidget.lightTextFieldStyle(),
+                      'See All',
+                      style: AppWidget.orangeSeeALlTextStyle(),
                     ),
                   ],
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    'assets/images/boy.jpg',
-                    width: 70,
-                    height: 70,
-                    fit: BoxFit.cover,
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 20),
+                      padding: EdgeInsets.all(20),
+                      height: 140,
+                      width: 90,
+                      decoration: BoxDecoration(
+                          color: Colours.orangeColor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          'All',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 140,
+                        child: ListView.builder(
+                            itemCount: categories.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return CategoryTile(categories[index]);
+                            }),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  //Categories -- See ALl section
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'All Products',
+                      style: AppWidget.semiBoldTextStyle(),
+                    ),
+                    Text(
+                      'See All',
+                      style: AppWidget.orangeSeeALlTextStyle(),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 240,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        margin: EdgeInsets.only(right: 20),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/headphone2.png',
+                              height: 150,
+                              width: 150,
+                              fit: BoxFit.cover,
+                            ),
+                            Text(
+                              'Headphone',
+                              style: AppWidget.semiBoldTextStyle(),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '\$100',
+                                  style: TextStyle(
+                                    color: Colours.orangeColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colours.orangeColor,
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      ///////////////////////////////////////////////////////////////////////
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        margin: EdgeInsets.only(right: 20),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/headphone2.png',
+                              height: 150,
+                              width: 150,
+                              fit: BoxFit.cover,
+                            ),
+                            Text(
+                              'Headphone',
+                              style: AppWidget.semiBoldTextStyle(),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '\$100',
+                                  style: TextStyle(
+                                    color: Colours.orangeColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colours.orangeColor,
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      ///////////////////////////////////////////////////////////////
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        margin: EdgeInsets.only(right: 20),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/headphone2.png',
+                              height: 150,
+                              width: 150,
+                              fit: BoxFit.cover,
+                            ),
+                            Text(
+                              'Headphone',
+                              style: AppWidget.semiBoldTextStyle(),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '\$100',
+                                  style: TextStyle(
+                                    color: Colours.orangeColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colours.orangeColor,
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ]),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

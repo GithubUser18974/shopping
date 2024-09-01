@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_work/pages/main/home.dart';
+import 'package:flutter_work/pages/bottomnav.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Bottomnav(),
     );
   }
 }
