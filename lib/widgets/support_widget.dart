@@ -26,4 +26,11 @@ class AppWidget {
       fontWeight: FontWeight.bold,
     );
   }
+
+  static TextStyle productDetailsTextStyle() {
+    return TextStyle(
+      fontSize: 15,
+      color: Colors.grey,
+    );
+  }
 }

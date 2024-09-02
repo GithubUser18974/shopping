@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_work/pages/main/Order.dart';
 import 'package:flutter_work/pages/main/Profile.dart';
 import 'package:flutter_work/pages/main/home.dart';
+import 'package:flutter_work/utility/colours.dart';
 
 class Bottomnav extends StatefulWidget {
   const Bottomnav({super.key});
@@ -32,7 +33,7 @@ class _BottomnavState extends State<Bottomnav> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
           height: 65,
-          backgroundColor: Colors.white,
+          backgroundColor: Colours.homePageBGColor,
           color: Colors.black,
           animationDuration: const Duration(milliseconds: 300),
           onTap: (int index) {
