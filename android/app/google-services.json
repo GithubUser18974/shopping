@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "843007069456",
-    "project_id": "shopapp-6857a",
-    "storage_bucket": "shopapp-6857a.appspot.com"
+    "project_number": "989100768096",
+    "project_id": "shopping-779ed",
+    "storage_bucket": "shopping-779ed.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:843007069456:android:8df68d34953307fe9b2995",
+        "mobilesdk_app_id": "1:989100768096:android:9c1a06e3635ce3719e7c05",
         "android_client_info": {
           "package_name": "com.example.flutter_work"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyADDJdQWjtdrwKdcA1euTBKoF0HpxFeUBU"
+          "current_key": "AIzaSyDHYe11jc1Wy5dh-554B5p_vW8UT8nhnBc"
         }
       ],
       "services": {

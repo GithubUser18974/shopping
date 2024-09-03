@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_work/pages/main/signup.dart';
+import 'package:flutter_work/pages/main/admin/add_product.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -11,23 +14,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List myList = [
-    {"name": "mohamed", "lastName": "Araby", "age": 20},
-    {"name": "ahmed", "lastName": "essawy", "age": 20},
-    {"name": "mahmoud", "lastName": "sabry", "age": 20},
-    {"name": "ebrahim", "lastName": "hassan", "age": 20},
-    {"name": "hamza", "lastName": "eitman", "age": 20},
-    {"name": "moaaz", "lastName": "hamdy", "age": 20},
-    {"name": "abdou", "lastName": "fawzy", "age": 20},
-  ];
-
   late bool status = true;
   late String country = "Syria";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignupPage(),
+      home: AddProduct(),
     );
   }
 }

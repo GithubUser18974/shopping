@@ -1,55 +1,52 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_work/pages/bottomnav.dart';
-import 'package:flutter_work/pages/main/admin/admin_login.dart';
-import 'package:flutter_work/pages/main/signup.dart';
-import 'package:flutter_work/pages/main/widgets/custom_inputfield.dart';
-import 'package:flutter_work/widgets/support_widget.dart';
+import 'package:flutter_work/pages/main/admin/home_admin.dart';
+import 'package:flutter_work/pages/main/login.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+import '../../../widgets/support_widget.dart';
+import '../widgets/custom_inputfield.dart';
+
+class AdminLogin extends StatefulWidget {
+  const AdminLogin({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<AdminLogin> createState() => _AdminLoginState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = new TextEditingController();
+class _AdminLoginState extends State<AdminLogin> {
+  TextEditingController userNameController = new TextEditingController();
   TextEditingController passwordsController = new TextEditingController();
   late String email, password;
   final _fromkey = GlobalKey<FormState>();
-  userLogin() async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-          'Login Succefully ',
-          style: TextStyle(fontSize: 20),
-        ),
-        backgroundColor: Colors.red,
-      ));
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Bottomnav()));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            'No User Found ',
-            style: TextStyle(fontSize: 20),
-          ),
-          backgroundColor: Colors.red,
-        ));
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            'The password is wrong',
-            style: TextStyle(fontSize: 20),
-          ),
-          backgroundColor: Colors.red,
-        ));
-      }
-    }
+  adminLogin() {
+    FirebaseFirestore.instance.collection("Admin").get().then((snapshot) {
+      snapshot.docs.forEach((result) {
+        print(result.data()['username']);
+        print(result.data()['password']);
+        if (result.data()['username'] != userNameController.text.trim()) {
+          //
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              'Your UserName Not Correct',
+              style: TextStyle(fontSize: 20),
+            ),
+          ));
+        } else if (result.data()['password'] !=
+            passwordsController.text.trim()) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              'Your Password not correct',
+              style: TextStyle(fontSize: 20),
+            ),
+          ));
+        } else {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => HomeAdmin()));
+        }
+      });
+    });
   }
 
   @override
@@ -68,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                 Image.asset('assets/images/login.jpg'),
                 Center(
                   child: Text(
-                    'Sign in',
+                    'Admin Login',
                     style: AppWidget.semiBoldTextStyle(),
                   ),
                 ),
@@ -84,13 +81,13 @@ class _LoginPageState extends State<LoginPage> {
                   height: 40,
                 ),
                 Text(
-                  'Email',
+                  'UserName',
                   style: AppWidget.semiBoldTextStyle(),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                CustomInputField('Email', emailController),
+                CustomInputField('userName', userNameController),
                 SizedBox(
                   height: 40,
                 ),
@@ -105,19 +102,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Forget Password?',
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -131,13 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        if (_fromkey.currentState!.validate()) {
-                          setState(() {
-                            email = emailController.text;
-                            password = passwordsController.text;
-                          });
-                          userLogin();
-                        }
+                        adminLogin();
                       },
                       child: Center(
                         child: Text(
@@ -158,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Dont\'t have an account? ',
+                      'Move to Customer ',
                       style: AppWidget.lightTextFieldStyle(),
                     ),
                     GestureDetector(
@@ -166,10 +144,10 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SignupPage()));
+                                builder: (context) => LoginPage()));
                       },
                       child: Text(
-                        'SignUp',
+                        'SignIN',
                         style: TextStyle(
                           color: Colors.green,
                           fontSize: 18,
@@ -178,21 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => AdminLogin()));
-                  },
-                  child: Text(
-                    'Admin',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
           ),
