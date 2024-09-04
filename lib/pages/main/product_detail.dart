@@ -3,8 +3,9 @@ import 'package:flutter_work/utility/colours.dart';
 import 'package:flutter_work/widgets/support_widget.dart';
 
 class ProductDetail extends StatefulWidget {
-  const ProductDetail({super.key});
-
+  ProductDetail(
+      this.nameProduct, this.prodeuctprice, this.imageProduct, this.details);
+  String imageProduct, nameProduct, details, prodeuctprice;
   @override
   State<ProductDetail> createState() => _ProductDetailState();
 }
@@ -39,8 +40,8 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                   ),
                   Center(
-                    child: Image.asset(
-                      'assets/images/headphone2.png',
+                    child: Image.network(
+                      widget.imageProduct,
                       height: 400,
                     ),
                   ),
@@ -70,11 +71,11 @@ class _ProductDetailState extends State<ProductDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Apple Watch",
+                              widget.nameProduct,
                               style: AppWidget.boldTextFieldStyle(),
                             ),
                             Text(
-                              "\$200",
+                              "\$" + widget.prodeuctprice,
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -105,7 +106,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         child: Text(
                           overflow: TextOverflow.ellipsis,
                           maxLines: 8,
-                          'oth 5.3 chipset, enhancing connect',
+                          widget.details,
                           style: AppWidget.productDetailsTextStyle(),
                         ),
                       ),

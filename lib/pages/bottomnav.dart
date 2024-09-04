@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_work/pages/main/Order.dart';
 import 'package:flutter_work/pages/main/Profile.dart';
 import 'package:flutter_work/pages/main/home.dart';
+import 'package:flutter_work/pages/main/login.dart';
 import 'package:flutter_work/utility/colours.dart';
 
 class Bottomnav extends StatefulWidget {
@@ -41,18 +42,24 @@ class _BottomnavState extends State<Bottomnav> {
               currentTabIndex = index;
             });
           },
-          items: const [
-            Icon(
+          items: [
+            const Icon(
               Icons.home_outlined,
               color: Colors.white,
             ),
-            Icon(
+            const Icon(
               Icons.shopping_bag_outlined,
               color: Colors.white,
             ),
-            Icon(
-              Icons.person_outlined,
-              color: Colors.white,
+            IconButton(
+              icon: const Icon(
+                Icons.person_outlined,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
             ),
           ]),
       body: pages[currentTabIndex],

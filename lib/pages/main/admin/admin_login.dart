@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_work/pages/main/admin/home_admin.dart';
+import 'package:flutter_work/pages/main/admin/add_product.dart';
 import 'package:flutter_work/pages/main/login.dart';
 
 import '../../../widgets/support_widget.dart';
@@ -43,7 +43,7 @@ class _AdminLoginState extends State<AdminLogin> {
           ));
         } else {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => HomeAdmin()));
+              context, MaterialPageRoute(builder: (context) => AddProduct()));
         }
       });
     });
